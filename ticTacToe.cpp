@@ -1,24 +1,36 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 
 //Its char instead of int because mark will be a char 'X' or 'O'
-//0 while not be used but make coding the grid easier and less confusing
+//0 will not be used but make coding the grid easier and less confusing
 char square[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 int checkwin();
 void board();
+string player1, player2; //player1 and 2 is here so I can use it in the board funcion
 
 int main()
 {
     int player = 1, i, choice;
     char mark;
+    string currentPlayer;
+
+    board();
+    cout << "Player 1 (X), enter your name: ";
+    getline(cin, player1);
+
+    board();
+    cout << "Player 2 (O), enter your name: ";
+    getline(cin, player2);
 
     do{
         board();
         player = (player%2)? 1 : 2;//short for if else statment (condition)? true: false
+        currentPlayer = (player == 1)? player1: player2;
 
         //Players move
-        cout << "Player " << player << ", enter a number: ";
+        cout << currentPlayer <<", enter a number: ";
         cin >> choice;
 
         mark = (player == 1)? 'X' : 'O';
@@ -66,9 +78,10 @@ int main()
     board();
 
     if(i == 1){
-        cout << "-->\aPlayer " << --player << " win ";
+        player --;
+        cout << "-->\a"<< currentPlayer << " wins! ";
     }else{
-        cout << "-->\aGame draw";
+        cout << "-->\aGame draw!";
 
         cin.ignore();
         cin.get();
@@ -130,7 +143,7 @@ void board()
     system("cls"); //this clears the screen
     cout << "\n\n\tTic Tac Toe\n\n";
 
-    cout << "Player 1 (X) - Player (0)\n\n\n";
+    cout << player1 << "(X) - " << player2 << "(0)\n\n\n";
 
     cout << "     |     |     \n";
     cout << "  " << square[7] << "  |  " << square[8] << "  |  " << square[9] << endl;
